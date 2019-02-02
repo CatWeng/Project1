@@ -2,11 +2,13 @@
 
 /*****************
 
-Title of Project
-Author Name
+Sisyphean Cup
+Catherine Weng
 
-This is a template. You must fill in the title,
-author, and this description to match your project!
+The Sisyphean cup: a cup which must be filled before drinking from.
+However, as the water level increases, the cup starts leaking. 
+Sisyphus must stop up the cracks so he can drink from the cup.
+BUT- the higher the water level, the faster cracks appear.
 
 ******************/
 
