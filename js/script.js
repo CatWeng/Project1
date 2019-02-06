@@ -13,9 +13,10 @@ BUT- the higher the water level, the faster cracks appear.
 ******************/
 
 // Code source: https://www.sitepoint.com/frame-by-frame-animation-css-javascript/?fbclid=IwAR2ekL4KXt2PY1E40BxkizZwV-uzOgbGuIk4t5Co4cqk-lvck6Ni9VOQ6lc
+// Variables for the animation
 
 const $cup = $('#cup');
-const imagePath = 'Project1/assets/images';
+const imagePath = 'assets/images';
 const totalFrames = 23;
 const animationDuration = 4800;
 const timePerFrame = animationDuration / totalFrames;
@@ -78,6 +79,11 @@ function step(startTime) {
 
   requestAnimationFrame(step);
 }
+
+//Sets cracks to appear after a certain amount of time
+setTimeout(function(){
+    document.getElementById('crack').style.display = 'inline';
+},600);
 
 // create a set of hidden divs
 // and set their background-image attribute to required images
