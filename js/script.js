@@ -14,8 +14,8 @@ BUT- the higher the water level, the faster cracks appear.
 
 // Code source: https://www.sitepoint.com/frame-by-frame-animation-css-javascript/?fbclid=IwAR2ekL4KXt2PY1E40BxkizZwV-uzOgbGuIk4t5Co4cqk-lvck6Ni9VOQ6lc
 
-const $element = $('#cup');
-const imagePath = '/assets/images';
+const $cup = $('#cup');
+const imagePath = 'Project1/assets/images';
 const totalFrames = 23;
 const animationDuration = 4800;
 const timePerFrame = animationDuration / totalFrames;
@@ -63,7 +63,7 @@ function step(startTime) {
   // then we check if it is time to update the frame
   if (timeFromLastUpdate > timePerFrame) {
     // and update it accordingly
-    $element.attr('src', imagePath + `/cup-${frameNumber}.png`);
+    $cup.attr('src', imagePath + '/cup-' + frameNumber + '.png');
       //  $element.attr('src', imagePath + `/cup-${frameNumber}.png`);
     // reset the last update time
     timeWhenLastUpdate = startTime;
