@@ -10,21 +10,21 @@ body {
   background-color: white;
   padding: 0;
   margin: 0;
+  display: block;
 }
 
-img{
-  position: absolute;
-  top: 0;
-  left: 0;
-}
 
 #cup {
   z-index: 1;
-
+  position: absolute;
+  height: 100%;
+  width: 100%;
 }
 
 #crack {
   display: none;
   z-index: 3;
-
+  position: absolute;
+  top: 200px;
+  left: 400px;
 }

@@ -15,39 +15,16 @@ BUT- the higher the water level, the faster cracks appear.
 // Code source: https://www.sitepoint.com/frame-by-frame-animation-css-javascript/?fbclid=IwAR2ekL4KXt2PY1E40BxkizZwV-uzOgbGuIk4t5Co4cqk-lvck6Ni9VOQ6lc
 // Variables for the animation
 
-const $cup = $('#cup');
 const imagePath = 'assets/images';
-const totalFrames = 23;
+const totalFrames = 24;
 const animationDuration = 4800;
 const timePerFrame = animationDuration / totalFrames;
 let timeWhenLastUpdate;
 let timeFromLastUpdate;
 let frameNumber = 1;
+let $cup;
+let full = false;
 
-// preload()
-//
-// Description of preload
-
-function preload() {
-
-}
-
-
-// setup()
-//
-// Description of setup
-
-function setup() {
-
-
-}
-
-// draw()
-//
-// Description of draw()
-
-function draw() {
-}
 
 //Code source: https://www.sitepoint.com/frame-by-frame-animation-css-javascript/?fbclid=IwAR2ekL4KXt2PY1E40BxkizZwV-uzOgbGuIk4t5Co4cqk-lvck6Ni9VOQ6lc
 
@@ -55,7 +32,8 @@ function draw() {
 // we achieve that by passing 'step' as a parameter to the 'requestAnimationFrame' function
 function step(startTime) {
 
-//  console.log("working");
+ $cup = $('#cup');
+  // console.log($('#cup').attr('src'));
   // 'startTime' is provided by requestAnimationName function, and we can consider it as current time
   // first of all we calculate how much time has passed from the last time when frame was update
   if (!timeWhenLastUpdate) timeWhenLastUpdate = startTime;
@@ -65,24 +43,27 @@ function step(startTime) {
   if (timeFromLastUpdate > timePerFrame) {
     // and update it accordingly
     $cup.attr('src', imagePath + '/cup-' + frameNumber + '.png');
-      //  $element.attr('src', imagePath + `/cup-${frameNumber}.png`);
     // reset the last update time
     timeWhenLastUpdate = startTime;
 
-    // then increase the frame number or reset it if it is the last frame
-    if (frameNumber >= totalFrames) {
-      frameNumber = 1;
-    } else {
-      frameNumber = frameNumber + 1;
-    }
-  }
-
+    // then set the frame number to increase or decrease whether the cup is "full" or not
+      if (full == false)  {
+        frameNumber = frameNumber+1;
+        if (frameNumber >= 24)
+          full = true;
+      }
+      else {
+        frameNumber = frameNumber-1;
+        if (frameNumber <= 1)
+          full = false;
+      }
+}
   requestAnimationFrame(step);
 }
 
 //Sets cracks to appear after a certain amount of time
 setTimeout(function(){
-    document.getElementById('crack').style.display = 'inline';
+  document.getElementById('crack').style.display = 'block';
 },600);
 
 // create a set of hidden divs
@@ -92,6 +73,7 @@ $(document).ready(() => {
   for (var i = 1; i < totalFrames + 1; i++) {
     $('body').append(`<div id="preload-image-${i}" style="background-image: url('${imagePath}/cup-${i}.png');"></div>`);
   }
+
 });
 
 // wait for images to be downloaded and start the animation
