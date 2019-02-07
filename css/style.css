@@ -28,3 +28,8 @@ body {
   top: 200px;
   left: 400px;
 }
+
+.generatedCrack{
+  z-index: 8;
+  position: absolute;
+}

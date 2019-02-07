@@ -24,6 +24,8 @@ let timeFromLastUpdate;
 let frameNumber = 1;
 let $cup;
 let full = false;
+let crackImg = document.createElement('img')
+let numCracks;
 
 
 //Code source: https://www.sitepoint.com/frame-by-frame-animation-css-javascript/?fbclid=IwAR2ekL4KXt2PY1E40BxkizZwV-uzOgbGuIk4t5Co4cqk-lvck6Ni9VOQ6lc
@@ -33,7 +35,6 @@ let full = false;
 function step(startTime) {
 
  $cup = $('#cup');
-  // console.log($('#cup').attr('src'));
   // 'startTime' is provided by requestAnimationName function, and we can consider it as current time
   // first of all we calculate how much time has passed from the last time when frame was update
   if (!timeWhenLastUpdate) timeWhenLastUpdate = startTime;
@@ -61,11 +62,32 @@ function step(startTime) {
   requestAnimationFrame(step);
 }
 
-//Sets cracks to appear after a certain amount of time
-setTimeout(function(){
-  document.getElementById('crack').style.display = 'block';
-},600);
+function crack(){
 
+  //Creates a new crack at a randomized location within certaion parameters
+  let randomX = Math.random() * 500;
+  let randomY = Math.random() * 500;
+  let $crack = $('<img src="assets/images/crack.png" class="generatedCrack">')
+
+  //Old code generating cracks
+  //crackImg.src = 'assets/images/crack.png';
+  //crackImg.style = 'top: 200px; left: 300px; position: absolute; z-index: 8; display: none';
+  //document.getElementsByTagName('body')[0].appendChild(crackImg);
+
+  //Set random crack location
+$crack.offset({
+  top: randomY,
+  left: randomX,
+});
+
+// creates the crack within the body
+$('body').append($crack);
+  //Changed cracks from appearing after a certain amount of time
+  //To appearing with the water level
+  if (frameNumber >= 13){
+
+  }
+}
 // create a set of hidden divs
 // and set their background-image attribute to required images
 // that will force browser to download the images
@@ -79,5 +101,5 @@ $(document).ready(() => {
 // wait for images to be downloaded and start the animation
 $(window).on('load', () => {
   requestAnimationFrame(step);
+  crack();
 });
-// ---------------------------------------
