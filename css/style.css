@@ -22,11 +22,11 @@ body {
 }
 
 #crack {
-  display: none;
+
   z-index: 3;
   position: absolute;
-  top: 200px;
-  left: 400px;
+  top: 530px;
+  left: 320px;
 }
 
 .generatedCrack{

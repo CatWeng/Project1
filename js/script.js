@@ -24,8 +24,8 @@ let timeFromLastUpdate;
 let frameNumber = 1;
 let $cup;
 let full = false;
-let crackImg = document.createElement('img')
-let numCracks;
+let crackCreated = false;
+let numCracks = 0;
 
 
 //Code source: https://www.sitepoint.com/frame-by-frame-animation-css-javascript/?fbclid=IwAR2ekL4KXt2PY1E40BxkizZwV-uzOgbGuIk4t5Co4cqk-lvck6Ni9VOQ6lc
@@ -65,28 +65,62 @@ function step(startTime) {
 function crack(){
 
   //Creates a new crack at a randomized location within certaion parameters
-  let randomX = Math.random() * 500;
-  let randomY = Math.random() * 500;
+  let randomX;
+  let randomY;
   let $crack = $('<img src="assets/images/crack.png" class="generatedCrack">')
-
+  let created = false;
   //Old code generating cracks
   //crackImg.src = 'assets/images/crack.png';
   //crackImg.style = 'top: 200px; left: 300px; position: absolute; z-index: 8; display: none';
   //document.getElementsByTagName('body')[0].appendChild(crackImg);
 
-  //Set random crack location
-$crack.offset({
-  top: randomY,
-  left: randomX,
-});
+  //creates the crack within the body tag
+  $('body').append($crack);
 
-// creates the crack within the body
-$('body').append($crack);
+  // when clicked, the created crack is 'fixed'
+  $crack.on("click", removeCrack);
   //Changed cracks from appearing after a certain amount of time
-  //To appearing with the water level
-  if (frameNumber >= 13){
+  //To appearing with the water level in an appriopriate position
+    if (created == false){
+      if (frameNumber<= 6) {
+        randomX = Math.floor(Math.random() * (340)) + 320;
+        randomY = Math.floor(Math.random() * (70)) + 530;
+      }
+    }
+    //Set a semi-random crack location
+    $crack.offset({
+      left: randomX,
+      top: randomY,
+    });
+}
 
-  }
+// remove the cracks when the user clicks on them
+function removeCrack() {
+    $(this).remove();
+    //resets numbers of cracks so more cracks can be created
+    numCracks = numCracks - 1;
+}
+
+// creates a loop that runs at the
+function setup() {
+  let timer = (2000/frameNumber/4)
+  setInterval(function() {
+    draw();
+  }, timer);
+}
+function draw() {
+ if(numCracks == 0){
+   if (frameNumber <= 6 && frameNumber >= 1) {
+     //Creates the crack with specified parameters
+     crack();
+     // Tracks how many cracks are currently on the cup
+     numCracks = numCracks + 1;
+ }
+}
+ if (numCracks >=1) {
+   console.log(frameNumber);
+ }
+
 }
 // create a set of hidden divs
 // and set their background-image attribute to required images
@@ -95,11 +129,11 @@ $(document).ready(() => {
   for (var i = 1; i < totalFrames + 1; i++) {
     $('body').append(`<div id="preload-image-${i}" style="background-image: url('${imagePath}/cup-${i}.png');"></div>`);
   }
-
+  setup();
 });
+
 
 // wait for images to be downloaded and start the animation
 $(window).on('load', () => {
   requestAnimationFrame(step);
-  crack();
 });
