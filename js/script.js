@@ -118,7 +118,7 @@ function removeCrack() {
 function setup() {
   setInterval(function() {
     draw();
-  }, 500);
+  }, 300);
 }
 
 // Set different things to happen depending on the number of cracks existing
